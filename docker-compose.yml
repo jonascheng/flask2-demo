@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  redis:
+    image: "redis:alpine"
+  triton:
+    image: rodolpheche/wiremock
+    volumes:
+      - ./wiremock/stubs:/home/wiremock
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #deploy:
+    #  replicas: 2
+    ports:
+      - "5000:5000"
+    environment:
+      # GUNICORN_WORKER_CLASS: "gevent"
+      GUNICORN_WORKER_CLASS: "gthread"
+    # command: ["python", "./app.py"]
+    command: ["gunicorn", "gunicorn_entry:app", "-c", "gunicorn_config.py"]
+    depends_on:
+      - redis

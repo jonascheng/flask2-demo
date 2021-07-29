@@ -1,0 +1,10 @@
+# flask[async]==2.0.1
+Flask==1.1.2
+aiohttp==3.7.3
+requests
+redis==3.5.3
+aredis==1.1.8
+Flask-Cors==3.0.9
+gunicorn==20.0.4
+gevent
+eventlet
